@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.rust.rust-static-file-server</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/yourusername/Library/rust-static-file-server/target/release/rust-static-file-server</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/yourusername/Library/rust-static-file-server</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+</dict>
+</plist>
