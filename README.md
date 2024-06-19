@@ -15,15 +15,24 @@ Ensure your directory structure follows this format:
 ```
 .
 ├── static
+│   ├── oald
+│   │   ├── us
+│   │   │   ├── level1
+│   │   │   │   ├── level2
+│   │   │   │   │   └── file1.mp3
+│   │   │   └── file1.mp3  # For legacy support
 │   ├── xx
 │   │   ├── us
-│   │   │   └── file1.mp3
+│   │   │   ├── level1
+│   │   │   │   ├── level2
+│   │   │   │   │   └── file2.mp3
+│   │   │   └── file2.mp3  # For legacy support
 │   ├── yy
-│   │   ├── us
-│   │   │   └── file2.mp3
-│   ├── zz
-│   │   ├── us
-│   │   │   └── file3.mp3
+│   │   ├── ams
+│   │   │   ├── level1
+│   │   │   │   ├── level2
+│   │   │   │   │   └── file3.mp3
+│   │   │   └── file3.mp3  # For legacy support
 ```
 
 ## Installation
@@ -31,7 +40,7 @@ Ensure your directory structure follows this format:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/Haiyuan/rust-static-file-server.git
+   git clone https://github.com/your_username/rust-static-file-server.git
    cd rust-static-file-server
    ```
 
@@ -57,15 +66,20 @@ Ensure your directory structure follows this format:
 
 2. Access MP3 files via your browser or any HTTP client:
 
-   - `http://127.0.0.1:8000/oald/us/file1.mp3`
-   - `http://127.0.0.1:8000/xx/us/file2.mp3`
-   - `http://127.0.0.1:8000/yy/ams/file3.mp3`
+   - Legacy structure:
+     - `http://127.0.0.1:8000/oald/us/file1.mp3`
+     - `http://127.0.0.1:8000/xx/us/file2.mp3`
+     - `http://127.0.0.1:8000/yy/ams/file3.mp3`
+   - New structure:
+     - `http://127.0.0.1:8000/oald/us/level1/level2/file1.mp3`
+     - `http://127.0.0.1:8000/xx/us/level1/level2/file2.mp3`
+     - `http://127.0.0.1:8000/yy/ams/level1/level2/file3.mp3`
 
 ## Autostart on macOS using `launchd`
 
 To configure the server to start automatically on macOS, create a `launchd` plist file.
 
-1. Create the `launchd` plist file at `~/Library/LaunchAgents/com.rust.rust-static-file-server.plist` with the following content:
+1. Create the `launchd` plist file at `~/Library/LaunchAgents/com.rust.dict_server.plist` with the following content:
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -73,13 +87,13 @@ To configure the server to start automatically on macOS, create a `launchd` plis
    <plist version="1.0">
    <dict>
        <key>Label</key>
-       <string>com.rust.rust-static-file-server</string>
+       <string>com.rust.dict_server</string>
        <key>ProgramArguments</key>
        <array>
-           <string>/Users/yourusername/Library/rust-static-file-server/target/release/rust-static-file-server</string>
+           <string>/Users/yourusername/Library/DictServer/target/release/dict_server</string>
        </array>
        <key>WorkingDirectory</key>
-       <string>/Users/yourusername/Library/rust-static-file-server</string>
+       <string>/Users/yourusername/Library/DictServer</string>
        <key>RunAtLoad</key>
        <true/>
        <key>KeepAlive</key>
@@ -88,24 +102,24 @@ To configure the server to start automatically on macOS, create a `launchd` plis
    </plist>
    ```
 
-2. Replace `/Users/yourusername/Library/rust-static-file-server/target/release/rust-static-file-server` with the actual path to your compiled executable.
+2. Replace `/Users/yourusername/Library/DictServer/target/release/dict_server` with the actual path to your compiled executable.
 
 3. Load the plist file to `launchd`:
 
    ```sh
-   launchctl load ~/Library/LaunchAgents/com.rust.rust-static-file-server.plist
+   launchctl load ~/Library/LaunchAgents/com.rust.dict_server.plist
    ```
 
 4. Verify that the service is running:
 
    ```sh
-   launchctl list | grep com.rust.rust-static-file-server
+   launchctl list | grep com.rust.dict_server
    ```
 
 5. To unload the service:
 
    ```sh
-   launchctl unload ~/Library/LaunchAgents/com.rust.rust-static-file-server.plist
+   launchctl unload ~/Library/LaunchAgents/com.rust.dict_server.plist
    ```
 
 ## Customization
